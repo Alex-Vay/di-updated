@@ -10,13 +10,7 @@ namespace TagsCloudVisualization;
 
 internal class Program
 {
-    //Запуск из ide
-    public static void Main()
-    {
-        Start("text.txt -c 0x00FF00".Split());
-    }
-
-    public static void Start(string[] args)
+    public static void Main(string[] args)
     {
         Parser.Default.ParseArguments<Options>(args)
             .WithParsed(settings =>
