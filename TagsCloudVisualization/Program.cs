@@ -5,7 +5,6 @@ using TagsCloudVisualization.CloudLayouter.PointsGenerators;
 using TagsCloudVisualization.FileReaders;
 using TagsCloudVisualization.FileReaders.Filters;
 using TagsCloudVisualization.Visualizers;
-using TagCloudClient;
 
 namespace TagsCloudVisualization;
 
@@ -14,7 +13,7 @@ internal class Program
     //Запуск из ide
     public static void Main()
     {
-        Start("text.txt".Split());
+        Start("text.txt -c 0x00FF00".Split());
     }
 
     public static void Start(string[] args)

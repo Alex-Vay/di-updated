@@ -1,7 +1,7 @@
 ﻿using TagsCloudVisualization.Settings;
 using TagsCloudVisualization.CloudLayouter.PointsGenerators;
 
-namespace TagCloudClient;
+namespace TagsCloudVisualization;
 
 public static class SettingsFactory
 {

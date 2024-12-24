@@ -73,33 +73,35 @@ public class Options
 
     [Option('b', "background-color",
         Required = false,
-        HelpText = "Background color (format: 'black' or 'random')")]
+        HelpText = "Background color (format: 'black' or 'random' or '0xRRGGBB')")]
     public string BackgroundColorType { get; set; } = "black";
 
     public IImageColoring BackgroundColor
     {
-        get => BackgroundColorType.ToLower() switch
-        {
-            "black" => new BlackColoring(),
-            "random" => new RandomColoring(),
-            _ => throw new ArgumentException($"Invalid background color type: '{BackgroundColorType}'. Use 'black' or 'random'.")
-        };
+        get => GetColoringAlg(BackgroundColorType);
     }
 
     [Option('c', "word-color",
         Required = false,
-        HelpText = "Words color (format: 'black' or 'random')")]
+        HelpText = "Words color (format: 'black' or 'random' or '0xRRGGBB')")]
     public string WordColorType { get; set; } = "random";
 
     public IImageColoring ForegroundColor
     {
-        get => WordColorType.ToLower() switch
+        get => GetColoringAlg(WordColorType);
+    }
+
+    private IImageColoring GetColoringAlg(string colotStr) =>
+        colotStr.ToLower() switch
         {
             "black" => new BlackColoring(),
             "random" => new RandomColoring(),
-            _ => throw new ArgumentException($"Invalid word color type: '{WordColorType}'. Use 'black' or 'random'.")
+            _ when char.IsDigit(colotStr[0]) =>
+                new CustumSingleColoring(
+                    Color.FromArgb(255,
+                    Color.FromArgb(Convert.ToInt32(colotStr, 16)))),
+            _ => throw new ArgumentException($"Invalid color type: '{colotStr}'. Use 'black' or 'random'.")
         };
-    }
 
     [Option("image-name",
         Required = false,
