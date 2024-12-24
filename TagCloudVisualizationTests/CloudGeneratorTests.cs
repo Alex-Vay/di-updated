@@ -26,7 +26,7 @@ public class CloudGeneratorTest
 
     private static CloudGenerator InitGenerator()
     {
-        var fileReader = new TxtFileReader("TestData/text.txt", Encoding.UTF8);
+        var fileReader = new TxtFileReader("./../../../TestData/text.txt", Encoding.UTF8);
         var imageSaver = new ImageSaver("test", "png");
         var layouter = new CircularCloudLayouter(new SpiralPointsGenerator(new Point(1000, 1000), 0.1, 0.1));
         var imageCreator = new ImageCreator(

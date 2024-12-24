@@ -8,11 +8,13 @@ namespace TagsCloudVisualizationTests;
 [TestFixture]
 public class BoringWordsFilterTests
 {
+    private string path = "./../../../TestData/text.txt";
+
     [Test]
     public void BoringWordFilter_FilterText_ShouldExcludeAllBoringWords()
     {
         var filter = new BoringWordsFilter();
-        var reader = new TxtFileReader("TestData/text.txt", Encoding.UTF8);
+        var reader = new TxtFileReader(path, Encoding.UTF8);
 
         var text = reader.ReadLines();
         var filtered = filter.FilterText(text);
@@ -24,7 +26,7 @@ public class BoringWordsFilterTests
     public void BoringWordFilter_AddBoringPartOfSpeech_ShouldExcludeAllBoringWords()
     {
         var filter = new BoringWordsFilter();
-        var reader = new TxtFileReader("TestData/text.txt", Encoding.UTF8);
+        var reader = new TxtFileReader(path, Encoding.UTF8);
 
         var text = reader.ReadLines();
         filter.AddBoringPartOfSpeech("S");
@@ -37,7 +39,7 @@ public class BoringWordsFilterTests
     public void BoringWordFilter_AddBoringPartOfSpeech_ShouldExcludeBoringWord()
     {
         var filter = new BoringWordsFilter();
-        var reader = new TxtFileReader("TestData/text.txt", Encoding.UTF8);
+        var reader = new TxtFileReader(path, Encoding.UTF8);
 
         var text = reader.ReadLines();
         filter.AddBoringPartOfSpeech("должен");

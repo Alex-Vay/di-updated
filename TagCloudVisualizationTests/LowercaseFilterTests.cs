@@ -13,7 +13,7 @@ public class LowercaseFilterTests
     [Test]
     public void LowercaseFilter_FilterText_ShouldLowercaseAllWords()
     {
-        var reader = new TxtFileReader("TestData/text.txt", Encoding.UTF8);
+        var reader = new TxtFileReader("./../../../TestData/text.txt", Encoding.UTF8);
 
         var text = reader.ReadLines();
         var filtered = filter.FilterText(text);

@@ -9,7 +9,7 @@ namespace TagsCloudVisualizationTests
         [Test]
         public void ReadLines_ReturnCorrect_WhenReadWordsFromFile()
         {
-            var reader = new WordFileReader("TestData/text.docx");
+            var reader = new WordFileReader("./../../../TestData/text.docx");
 
             var result = reader.ReadLines();
 

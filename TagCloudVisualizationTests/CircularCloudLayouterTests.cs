@@ -26,7 +26,7 @@ public class CircularCloudLayouterTests
         var pointGenerator = new SpiralPointsGenerator(center, 0.1, 0.1);
         cloudLayouter = new CircularCloudLayouter(pointGenerator);
 
-        var fileReader = new TxtFileReader("TestData/text.txt", Encoding.UTF8);
+        var fileReader = new TxtFileReader("./../../../TestData/text.txt", Encoding.UTF8);
         var imageSaver = new ImageSaver("test", "png");
         var imageGenerator = new ImageCreator(
             new Size(imageWidth, imageHeight), new FontFamily("Calibri"),

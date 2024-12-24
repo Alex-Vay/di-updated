@@ -10,7 +10,7 @@ namespace TagsCloudVisualizationTests
         [Test]
         public void ReadLines_ShouldCorrect_WhenReadWordsFromFile()
         {
-            var reader = new CsvFileReader("TestData/text.csv", CultureInfo.InvariantCulture);
+            var reader = new CsvFileReader("./../../../TestData/text.csv", CultureInfo.InvariantCulture);
 
             var result = reader.ReadLines();
 

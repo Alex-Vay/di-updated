@@ -9,7 +9,7 @@ namespace TagsCloudVisualizationTests
         [Test]
         public void ReadLines_ReturnCorrect_WhenReadWordsFromFile()
         {
-            var reader = new TxtFileReader("TestData/text.txt", Encoding.UTF8);
+            var reader = new TxtFileReader("./../../../TestData/text.txt", Encoding.UTF8);
 
             var result = reader.ReadLines();
 
