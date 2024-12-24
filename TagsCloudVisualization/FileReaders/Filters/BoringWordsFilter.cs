@@ -32,7 +32,7 @@ public class BoringWordsFilter : IFilter
         {
             StartInfo =
             {
-                FileName = "mystem.exe",
+                FileName = "./../../../../mystem.exe",
                 Arguments = "-i -n -e cp866",
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
