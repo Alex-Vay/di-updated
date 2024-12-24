@@ -2,7 +2,7 @@
 using System.Drawing;
 using TagsCloudVisualization.CloudLayouter.PointsGenerators;
 
-namespace TagsCloudVisualization.Tests.SpiralPointsGeneratorTests;
+namespace TagsCloudVisualizationTests;
 
 [TestFixture, Parallelizable(ParallelScope.All)]
 public class SpiralPointsGeneratorTests

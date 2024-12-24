@@ -3,23 +3,9 @@ using TagsCloudVisualization.CloudLayouter.PointsGenerators;
 
 namespace TagsCloudVisualization.CloudLayouter;
 
-public class CircularCloudLayouter : ICircularCloudLayouter
+public class CircularCloudLayouter(IPointsGenerator pointGenerator) : ICircularCloudLayouter
 {
-    public Point Center { get; }
-    public List<Rectangle> GeneratedRectangles { get; }
-    private readonly IPointsGenerator spiral;
-
-    public CircularCloudLayouter(Point center)
-    {
-        Center = center;
-        GeneratedRectangles = new List<Rectangle>();    
-        spiral = new SpiralPointsGenerator(center);
-    }
-
-    public CircularCloudLayouter(Point center, int step, int angleOffset) : this(center)
-    {
-        spiral = new SpiralPointsGenerator(center, step, angleOffset);
-    }
+    public List<Rectangle> GeneratedRectangles { get; } = new ();
 
     public Rectangle PutNextRectangle(Size rectangleSize)
     {
@@ -36,7 +22,7 @@ public class CircularCloudLayouter : ICircularCloudLayouter
 
     private Rectangle GetNextRectangle(Size rectangleSize)
     {
-        var rectanglePosition = spiral.GetNextPointPosition();
+        var rectanglePosition = pointGenerator.GetNextPointPosition();
         return CreateRectangle(rectanglePosition, rectangleSize);
     }
 

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TagsCloudVisualization": {
+      "commandName": "Project",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}

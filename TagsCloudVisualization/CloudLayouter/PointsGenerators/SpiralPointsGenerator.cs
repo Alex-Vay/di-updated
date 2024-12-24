@@ -1,4 +1,5 @@
 using System.Drawing;
+using TagsCloudVisualization.Settings;
 
 namespace TagsCloudVisualization.CloudLayouter.PointsGenerators;
 
@@ -9,7 +10,11 @@ public class SpiralPointsGenerator : IPointsGenerator
     private readonly Point center;
     private double currentAngle = 0;
 
-    public SpiralPointsGenerator(Point center, double step = 0.1, double angleOffset = 0.1)
+    public SpiralPointsGenerator(SpiralPointsGeneratorSettings settings)
+        : this(settings.Center, settings.Radius, settings.AngleOffset)
+    { }
+
+    public SpiralPointsGenerator(Point center, double step, double angleOffset)
     {
         if (step == 0 || angleOffset == 0)
             throw new ArgumentException($"Step and angleOffset must not be zero");

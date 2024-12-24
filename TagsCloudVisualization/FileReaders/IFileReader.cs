@@ -2,5 +2,5 @@
 
 public interface IFileReader
 {
-    public List<string> ReadLines(string path);
+    public List<string> ReadLines();
 }
