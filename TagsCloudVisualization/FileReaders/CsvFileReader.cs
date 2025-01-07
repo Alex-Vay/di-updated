@@ -6,7 +6,7 @@ using TagsCloudVisualization.Settings;
 
 namespace TagsCloudVisualization.FileReaders;
 
-public class CsvFileReader(string path, CultureInfo cultureInfo) : IFileReader
+public class CsvFileReader(string path) : IFileReader
 {
     private class TableCell
     {
@@ -15,12 +15,12 @@ public class CsvFileReader(string path, CultureInfo cultureInfo) : IFileReader
     }
 
     public CsvFileReader(CsvFileReaderSettings settings)
-        : this(settings.FilePath, settings.Culture)
+        : this(settings.FilePath)
     { }
 
     public List<string> ReadLines()
     {
-        var configuration = new CsvConfiguration(cultureInfo)
+        var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = false
         };

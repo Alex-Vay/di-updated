@@ -2,4 +2,4 @@
 
 namespace TagsCloudVisualization.Settings;
 
-public record CsvFileReaderSettings(string FilePath, CultureInfo Culture);
+public record CsvFileReaderSettings(string FilePath);

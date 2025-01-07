@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics;
 
-namespace TagsCloudVisualization.FileReaders.Filters;
+namespace TagsCloudVisualization.FileReaders.Processors;
 
-public class BoringWordsFilter : IFilter
+public class BoringWordsFilter : ITextProcessor
 {
     private HashSet<string> boringPartsOfSpeeches = new() { "PR", "PART", "CONJ" };
 
-    public List<string> FilterText(List<string> text)
+    public List<string> ProcessText(List<string> text)
     {
         var result = new List<string>();
         var stem = MyStem();

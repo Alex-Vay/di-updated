@@ -4,9 +4,10 @@ using TagsCloudVisualization.CloudLayouter;
 using TagsCloudVisualization.Visualizers;
 using TagsCloudVisualization.CloudLayouter.PointsGenerators;
 using System.Text;
-using TagsCloudVisualization.FileReaders.Filters;
+using TagsCloudVisualization.FileReaders.Processors;
 using TagsCloudVisualization.FileReaders;
 using TagsCloudVisualization.Visualizers.ImageColoring;
+using TagsCloudVisualization.CloudLayouter.CloudGenerators;
 
 namespace TagsCloudVisualizationTests;
 
@@ -26,13 +27,13 @@ public class CircularCloudLayouterTests
         var pointGenerator = new SpiralPointsGenerator(center, 0.1, 0.1);
         cloudLayouter = new CircularCloudLayouter(pointGenerator);
 
-        var fileReader = new TxtFileReader("./../../../TestData/text.txt", Encoding.UTF8);
+        var fileReader = new TxtFileReader("./../../../TestData/text.txt");
         var imageSaver = new ImageSaver("test", "png");
-        var imageGenerator = new ImageCreator(
+        var imageGenerator = new BitmapCreator(
             new Size(imageWidth, imageHeight), new FontFamily("Calibri"),
             new BlackColoring(), new RandomColoring(), cloudLayouter);
-        List<IFilter> filters = [new LowercaseFilter(), new BoringWordsFilter()];
-        cloudGenerator = new CloudGenerator(imageSaver, fileReader, imageGenerator, filters);
+        List<ITextProcessor> processors = [new LowercaseTransformer(), new BoringWordsFilter()];
+        cloudGenerator = new CloudGenerator(imageSaver, fileReader, imageGenerator, processors);
     }
 
     [TestCase(0, 1, TestName = "WhenWidthIsZero")]

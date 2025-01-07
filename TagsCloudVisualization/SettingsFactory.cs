@@ -6,7 +6,7 @@ namespace TagsCloudVisualization;
 public static class SettingsFactory
 {
     public static TxtFileReaderSettings BuildFileReaderSettings(Options options)
-        => new(options.FilePath, options.UsingEncoding);
+        => new(options.FilePath);
 
     public static ImageSettings BuildBitmapSettings(Options options)
         => new(options.Size, options.Font, options.BackgroundColor, options.ForegroundColor);
@@ -21,8 +21,8 @@ public static class SettingsFactory
         => new(options.FilePath);
 
     public static CsvFileReaderSettings BuildCsvReaderSettings(Options options)
-        => new(options.FilePath, options.Culture);
+        => new(options.FilePath);
 
     public static ImageSaveSettings BuildFileSaveSettings(Options options)
-        => new(options.ImageName, options.ImageFormat);
+        => new(options.ImageName, options.ImageFormat, options.OutputPath);
 }

@@ -1,4 +1,4 @@
 ﻿using System.Text;
 
 namespace TagsCloudVisualization.Settings;
-public record TxtFileReaderSettings(string FilePath, Encoding Encoding);
+public record TxtFileReaderSettings(string FilePath);

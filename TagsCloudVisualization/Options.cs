@@ -9,45 +9,31 @@ public class Options
     [Value(0, Required = true, HelpText = "Source file path (default: project dir)")]
     public string FilePath { get; set; }
 
-    [Option('e', "encoding",
-        Required = false,
-        HelpText = "Source encoding")]
-    public string EncodingName { get; set; } = "utf-8";
+    [Option('o', "output-path",
+    Required = false,
+    HelpText = "Image output path")]
+    public string OutputPath { get; set; } = null;
 
-    public Encoding UsingEncoding
-    {
-        get
-        {
-            try
-            {
-                return Encoding.GetEncoding(EncodingName);
-            }
-            catch (ArgumentException)
-            {
-                throw new ArgumentException($"Invalid encoding: '{EncodingName}'. Use valid encoding names like 'utf-8'.");
-            }
-        }
-    }
+    [Option('w', "width",
+    Required = false,
+    HelpText = "Image width (positive integer)")]
+    public int Width { get; set; } = 2000;
 
-    [Option('s', "size",
+    [Option('h', "height",
         Required = false,
-        HelpText = "Image size (format: 'width,height')")]
-    public string SizeInput { get; set; } = "2000,2000";
+        HelpText = "Image height (positive integer)")]
+    public int Height { get; set; } = 2000;
 
     public Size Size
     {
         get
         {
-            var parts = SizeInput.Split(',');
-            if (parts.Length == 2 &&
-                int.TryParse(parts[0], out var width) &&
-                int.TryParse(parts[1], out var height) &&
-                width > 0 && height > 0)
+            if (Width <= 0 || Height <= 0)
             {
-                return new Size(width, height);
+                throw new ArgumentException($"Invalid dimensions: Width={Width}, Height={Height}. Both must be positive integers.");
             }
 
-            throw new ArgumentException($"Invalid size format: '{SizeInput}'. Use 'width,height', e.g., '2000,2000'.");
+            return new Size(Width, Height);
         }
     }
 
@@ -126,42 +112,24 @@ public class Options
     [Option("center",
         Required = false,
         HelpText = "The center of the cloud in the image (format: 'x,y')")]
-    public string CenterInput { get; set; } = "1000,1000";
+    public string CenterInput { get; set; }
     public Point Center
     {
         get
         {
-            var parts = CenterInput.Split(',');
-            if (parts.Length == 2 &&
-                int.TryParse(parts[0], out var x) &&
-                int.TryParse(parts[1], out var y))
+            var defaultCenter = new Point(Width / 2, Height / 2);
+            if (!string.IsNullOrEmpty(CenterInput))
             {
-                return new Point(x, y);
+                var parts = CenterInput.Split(',');
+                if (parts.Length == 2 &&
+                    int.TryParse(parts[0], out var x) &&
+                    int.TryParse(parts[1], out var y))
+                {
+                    return new Point(x, y);
+                }
+                throw new ArgumentException($"Invalid center format: '{CenterInput}'. Use 'x,y', e.g., '1000,1000'.");
             }
-
-            throw new ArgumentException($"Invalid format for Center: '{CenterInput}'. Use format 'x,y'");
-        }
-    }
-
-    [Option("culture",
-        Required = false,
-        HelpText = "CSV culture information")]
-    public string CultureName { get; set; } = "InvariantCulture";
-
-    public CultureInfo Culture
-    {
-        get
-        {
-            try
-            {
-                return string.Equals(CultureName, "InvariantCulture", StringComparison.OrdinalIgnoreCase)
-                    ? CultureInfo.InvariantCulture
-                    : new CultureInfo(CultureName);
-            }
-            catch (CultureNotFoundException)
-            {
-                throw new ArgumentException($"Invalid culture: '{CultureName}'. Use a valid culture name like 'en-US'.");
-            }
+            return defaultCenter;
         }
     }
 }

@@ -5,14 +5,14 @@ using TagsCloudVisualization.Visualizers.ImageColoring;
 
 namespace TagsCloudVisualization.Visualizers;
 
-public class ImageCreator(
+public class BitmapCreator(
     Size size, 
     FontFamily family, 
     IImageColoring background, 
     IImageColoring coloring, 
     ICircularCloudLayouter layouter)
 {
-    public ImageCreator(ImageSettings settings, ICircularCloudLayouter layouter)
+    public BitmapCreator(ImageSettings settings, ICircularCloudLayouter layouter)
         : this(settings.Size, settings.Font, settings.BackgroundColor, settings.Coloring, layouter)
     { }
 
@@ -36,6 +36,6 @@ public class ImageCreator(
         return bitmap;
     }
 
-        private static Size CeilSize(SizeF size)
-            => new((int)size.Width + 1, (int)size.Height + 1);
+    private static Size CeilSize(SizeF size)
+        => new((int)size.Width + 1, (int)size.Height + 1);
 }
