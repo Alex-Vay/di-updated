@@ -3,25 +3,12 @@ using TagsCloudVisualization.Settings;
 
 namespace TagsCloudVisualization;
 
-public class FileReadersFactory
+public class FileReadersFactory(
+    CsvFileReaderSettings csvSettings,
+    TxtFileReaderSettings txtSettings,
+    WordFileReaderSettings wordSettings,
+    Options settings)
 {
-    private readonly CsvFileReaderSettings csvSettings;
-    private readonly TxtFileReaderSettings txtSettings;
-    private readonly WordFileReaderSettings wordSettings;
-    private readonly Options settings;
-
-    public FileReadersFactory(
-        CsvFileReaderSettings csvSettings, 
-        TxtFileReaderSettings txtSettings, 
-        WordFileReaderSettings wordSettings,
-        Options settings)
-    {
-        this.csvSettings = csvSettings;
-        this.txtSettings = txtSettings;
-        this.wordSettings = wordSettings;
-        this.settings = settings;
-    }
-
     public IFileReader CreateReader()
     {
         var path = settings.FilePath;
