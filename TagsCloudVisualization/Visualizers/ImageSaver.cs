@@ -1,9 +1,8 @@
-﻿using Microsoft.VisualStudio.TestPlatform.Utilities;
-using System.Drawing;
+﻿using System.Drawing;
 using TagsCloudVisualization.Settings;
 namespace TagsCloudVisualization.Visualizers;
 
-public class ImageSaver(string imageName, string imageFormat, string outputpath)
+public class ImageSaver(string imageName, string imageFormat, string outputpath = null)
 {
     private readonly List<string> supportedFormats = ["png", "jpg", "jpeg", "bmp"];
 

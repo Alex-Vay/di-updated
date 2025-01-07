@@ -10,7 +10,7 @@ namespace TagsCloudVisualizationTests
         [Test]
         public void ReadLines_ShouldCorrect_WhenReadWordsFromFile()
         {
-            var reader = new CsvFileReader("./../../../TestData/text.csv", CultureInfo.InvariantCulture);
+            var reader = new CsvFileReader("./../../../TestData/text.csv");
 
             var result = reader.ReadLines();
 
@@ -20,7 +20,7 @@ namespace TagsCloudVisualizationTests
         [Test]
         public void ReadLines_ShouldThrow_WhenFileDoesNotExists()
         {
-            var reader = new TxtFileReader("text ttt ty", Encoding.UTF8);
+            var reader = new TxtFileReader("text ttt ty");
 
             Action act = () => reader.ReadLines();
 
