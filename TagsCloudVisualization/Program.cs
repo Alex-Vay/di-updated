@@ -11,12 +11,7 @@ namespace TagsCloudVisualization;
 
 internal class Program
 {
-    //Запуск из ide
-    public static void Main()
-    {
-        Start("text.txt -c 0x099999 -o D:\\Contur\\di-updated\\TagsCloudVisualization".Split());
-    }
-    public static void Start(string[] args)
+    public static void Main(string[] args)
     {
         Parser.Default.ParseArguments<Options>(args)
             .WithParsed(settings =>
