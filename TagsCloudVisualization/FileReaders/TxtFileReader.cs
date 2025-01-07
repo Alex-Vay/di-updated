@@ -3,14 +3,10 @@ using TagsCloudVisualization.Settings;
 
 namespace TagsCloudVisualization.FileReaders;
 
-public class TxtFileReader(string path) : IFileReader
+public class TxtFileReader(TxtFileReaderSettings settings) : IFileReader
 {
-    public TxtFileReader(TxtFileReaderSettings settings)
-        : this(settings.FilePath)
-    { }
-
     public List<string> ReadLines() =>
-        File.ReadAllLines(path, Encoding.UTF8)
+        File.ReadAllLines(settings.FilePath, Encoding.UTF8)
         .Select(line => line.Split())
         .SelectMany(mas => mas)
         .Where(line => line.Length > 0)

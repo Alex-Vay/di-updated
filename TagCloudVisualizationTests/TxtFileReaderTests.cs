@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using FluentAssertions;
 using TagsCloudVisualization.FileReaders;
+using TagsCloudVisualization.Settings;
 
 namespace TagsCloudVisualizationTests
 {
@@ -9,7 +10,8 @@ namespace TagsCloudVisualizationTests
         [Test]
         public void ReadLines_ReturnCorrect_WhenReadWordsFromFile()
         {
-            var reader = new TxtFileReader("./../../../TestData/text.txt");
+            var fileReaderSettings = new TxtFileReaderSettings("./../../../TestData/text.txt");
+            var reader = new TxtFileReader(fileReaderSettings);
 
             var result = reader.ReadLines();
 
@@ -19,7 +21,8 @@ namespace TagsCloudVisualizationTests
         [Test]
         public void ReadLines_ShouldThrow_WhenFileDoesNotExists()
         {
-            var reader = new TxtFileReader("text ttt ty");
+            var fileReaderSettings = new TxtFileReaderSettings("text ttt ty");
+            var reader = new TxtFileReader(fileReaderSettings);
 
             Action act = () => reader.ReadLines();
 

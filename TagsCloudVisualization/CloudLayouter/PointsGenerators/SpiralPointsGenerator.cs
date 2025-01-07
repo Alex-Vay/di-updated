@@ -11,16 +11,12 @@ public class SpiralPointsGenerator : IPointsGenerator
     private double currentAngle = 0;
 
     public SpiralPointsGenerator(SpiralPointsGeneratorSettings settings)
-        : this(settings.Center, settings.Radius, settings.AngleOffset)
-    { }
-
-    public SpiralPointsGenerator(Point center, double step, double angleOffset)
     {
-        if (step == 0 || angleOffset == 0)
+        if (settings.Radius == 0 || settings.AngleOffset == 0)
             throw new ArgumentException($"Step and angleOffset must not be zero");
-        this.center = center;
-        this.step = step;
-        this.angleOffset = angleOffset;
+        center = settings.Center;
+        step = settings.Radius;
+        angleOffset = settings.AngleOffset;
     }
 
     public Point GetNextPointPosition()

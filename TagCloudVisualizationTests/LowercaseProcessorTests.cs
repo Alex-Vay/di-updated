@@ -2,6 +2,7 @@
 using System.Text;
 using TagsCloudVisualization.FileReaders;
 using TagsCloudVisualization.FileReaders.Processors;
+using TagsCloudVisualization.Settings;
 
 namespace TagsCloudVisualizationTests;
 
@@ -13,7 +14,8 @@ public class LowercaseProcessorTests
     [Test]
     public void LowercaseProcessor_ProcessText_ShouldLowercaseAllWords()
     {
-        var reader = new TxtFileReader("./../../../TestData/text.txt");
+        var fileReaderSettings = new TxtFileReaderSettings("./../../../TestData/text.txt");
+        var reader = new TxtFileReader(fileReaderSettings);
 
         var text = reader.ReadLines();
         var processed = processor.ProcessText(text);

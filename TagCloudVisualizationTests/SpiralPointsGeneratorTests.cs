@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using System.Drawing;
 using TagsCloudVisualization.CloudLayouter.PointsGenerators;
+using TagsCloudVisualization.Settings;
 
 namespace TagsCloudVisualizationTests;
 
@@ -11,7 +12,9 @@ public class SpiralPointsGeneratorTests
     [TestCase(1, 0, TestName = "WhenAngleOffsetIsZero")]
     public void Constructor_ShouldThrowArgumentException(double step, double angleOffset)
     {
-        var act = () => new SpiralPointsGenerator(new Point(0, 0), step, angleOffset);
+        var pointGeneratorSettings = new SpiralPointsGeneratorSettings(new Point(0, 0), step, angleOffset);
+
+        var act = () => new SpiralPointsGenerator(pointGeneratorSettings);
 
         act.Should().Throw<ArgumentException>();
     }
@@ -19,7 +22,8 @@ public class SpiralPointsGeneratorTests
     [TestCaseSource(nameof(GeneratePointsTestCases))]
     public void GetNextPointPosition_ShouldReturnCorrectPoint(double step, double angleOffset, int pointNumber, Point expectedPoint)
     {
-        var pointsGenerator = new SpiralPointsGenerator(new Point(0, 0), step, angleOffset);
+        var pointGeneratorSettings = new SpiralPointsGeneratorSettings(new Point(0, 0), step, angleOffset);
+        var pointsGenerator = new SpiralPointsGenerator(pointGeneratorSettings);
 
         var actualPoint = pointsGenerator.GetNextPointPosition();
         for (var i = 0; i < pointNumber - 1; i++)

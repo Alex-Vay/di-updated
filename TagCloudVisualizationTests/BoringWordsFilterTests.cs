@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
-using System.Text;
 using TagsCloudVisualization.FileReaders;
 using TagsCloudVisualization.FileReaders.Processors;
+using TagsCloudVisualization.Settings;
 
 namespace TagsCloudVisualizationTests;
 
@@ -9,13 +9,20 @@ namespace TagsCloudVisualizationTests;
 public class BoringWordsFilterTests
 {
     private string path = "./../../../TestData/text.txt";
+    private TxtFileReader reader;
+    private BoringWordsFilter filter;
+
+    [SetUp]
+    public void Init()
+    {
+        filter = new BoringWordsFilter();
+        var fileReaderSettings = new TxtFileReaderSettings(path);
+        reader = new TxtFileReader(fileReaderSettings);
+    }
 
     [Test]
     public void BoringWordFilter_FilterText_ShouldExcludeAllBoringWords()
     {
-        var filter = new BoringWordsFilter();
-        var reader = new TxtFileReader(path);
-
         var text = reader.ReadLines();
         var filtered = filter.ProcessText(text);
 
@@ -25,9 +32,6 @@ public class BoringWordsFilterTests
     [Test]
     public void BoringWordFilter_AddBoringPartOfSpeech_ShouldExcludeAllBoringWords()
     {
-        var filter = new BoringWordsFilter();
-        var reader = new TxtFileReader(path);
-
         var text = reader.ReadLines();
         filter.AddBoringPartOfSpeech("S");
         var filtered = filter.ProcessText(text);
@@ -38,9 +42,6 @@ public class BoringWordsFilterTests
     [Test]
     public void BoringWordFilter_AddBoringPartOfSpeech_ShouldExcludeBoringWord()
     {
-        var filter = new BoringWordsFilter();
-        var reader = new TxtFileReader(path);
-
         var text = reader.ReadLines();
         filter.AddBoringPartOfSpeech("должен");
         var filtered = filter.ProcessText(text);

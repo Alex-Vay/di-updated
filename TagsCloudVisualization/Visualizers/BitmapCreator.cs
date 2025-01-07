@@ -5,16 +5,23 @@ using TagsCloudVisualization.Visualizers.ImageColoring;
 
 namespace TagsCloudVisualization.Visualizers;
 
-public class BitmapCreator(
-    Size size, 
-    FontFamily family, 
-    IImageColoring background, 
-    IImageColoring coloring, 
-    ICircularCloudLayouter layouter)
+public class BitmapCreator
+    
 {
+    private Size size;
+    private FontFamily family;
+    private IImageColoring background;
+    private IImageColoring coloring;
+    private ICircularCloudLayouter layouter;
+
     public BitmapCreator(ImageSettings settings, ICircularCloudLayouter layouter)
-        : this(settings.Size, settings.Font, settings.BackgroundColor, settings.Coloring, layouter)
-    { }
+    {
+        size = settings.Size;
+        family = settings.Font;
+        background = settings.BackgroundColor;
+        coloring = settings.Coloring;
+        this.layouter = layouter;
+    }
 
     public Bitmap CreateBitmap(
         List<WordSize> text

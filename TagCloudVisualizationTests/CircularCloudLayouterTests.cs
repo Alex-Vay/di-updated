@@ -3,11 +3,11 @@ using System.Drawing;
 using TagsCloudVisualization.CloudLayouter;
 using TagsCloudVisualization.Visualizers;
 using TagsCloudVisualization.CloudLayouter.PointsGenerators;
-using System.Text;
 using TagsCloudVisualization.FileReaders.Processors;
 using TagsCloudVisualization.FileReaders;
 using TagsCloudVisualization.Visualizers.ImageColoring;
 using TagsCloudVisualization.CloudLayouter.CloudGenerators;
+using TagsCloudVisualization.Settings;
 
 namespace TagsCloudVisualizationTests;
 
@@ -24,14 +24,20 @@ public class CircularCloudLayouterTests
     public void Init()
     {
         center = new Point(imageWidth / 2, imageHeight / 2);
-        var pointGenerator = new SpiralPointsGenerator(center, 0.1, 0.1);
+        var pointGeneratorSettings = new SpiralPointsGeneratorSettings(center, 0.1, 0.1);
+        var pointGenerator = new SpiralPointsGenerator(pointGeneratorSettings);
         cloudLayouter = new CircularCloudLayouter(pointGenerator);
 
-        var fileReader = new TxtFileReader("./../../../TestData/text.txt");
-        var imageSaver = new ImageSaver("test", "png");
-        var imageGenerator = new BitmapCreator(
+        var fileReaderSettings = new TxtFileReaderSettings("./../../../TestData/text.txt");
+        var fileReader = new TxtFileReader(fileReaderSettings);
+
+        var imageSaverSettings = new ImageSaveSettings("test", "png", null);
+        var imageSaver = new ImageSaver(imageSaverSettings);
+
+        var imageSettings = new ImageSettings(
             new Size(imageWidth, imageHeight), new FontFamily("Calibri"),
-            new BlackColoring(), new RandomColoring(), cloudLayouter);
+            new BlackColoring(), new RandomColoring());
+        var imageGenerator = new BitmapCreator(imageSettings, cloudLayouter);
         List<ITextProcessor> processors = [new LowercaseTransformer(), new BoringWordsFilter()];
         cloudGenerator = new CloudGenerator(imageSaver, fileReader, imageGenerator, processors);
     }
